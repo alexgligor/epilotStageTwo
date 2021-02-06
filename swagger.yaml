@@ -1,0 +1,71 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: Epilot Homework - GitHub API
+host: localhost:1342
+basePath: /
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /v1/active/{userName}:
+    get:
+      description: Check if GitHub user has activity in last 24 hours.
+      summary: Check user activity.
+      operationId: GetOperation
+      parameters:
+        - name: userName 
+          in: path
+          description: GitHub user name
+          type: string
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: object
+            properties:
+              active:
+                type: boolean
+        "404":
+          description: Failed to load events for user
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+  /v1/downwards/{repoName}:
+    get:
+      description: Check if on the GitHub repository ware more addition then deletion in last week.
+      summary: Are ther more additions then deletion
+      operationId: GetRepoOperation
+      parameters:
+        - name: repoName 
+          in: path
+          description: GitHub repository name
+          type: string
+          required: true
+        - name: userName 
+          in: query
+          description: GitHub repository user name
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: object
+            properties:
+              active:
+                type: boolean
+        "404":
+          description: No repository was found
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+      
+      
