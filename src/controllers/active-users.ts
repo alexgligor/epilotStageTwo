@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from 'express';
 import axios from 'axios';
 
 import { arePushEventsInLast24Hours, Status } from '../services/github-users';
-import { env } from '../config/config';
 
 export const activeUsersController = async (req: Request, res: Response, next: NextFunction) => {
     const username = req.params.user;
@@ -13,13 +12,16 @@ export const activeUsersController = async (req: Request, res: Response, next: N
         });
     }
     try {
-        let page = 1;
+        let currentPage = 1;
         let status = Status.LOAD_MORE;
+        
 
-        while (status === Status.LOAD_MORE && page < env.githubpaginationlimit) {
-            const resp = await axios.get(`${env.github}/users/${username}/events/public?page=${page}`);
+        const pageLimit = process.env.GITHUB_PAGINATION_LIMIT||10;
+
+        while (status === Status.LOAD_MORE && currentPage < pageLimit) {
+            const resp = await axios.get(`${process.env.GITHUB_URL}/users/${username}/events/public?page=${currentPage}`);
             status = arePushEventsInLast24Hours(resp.data);
-            page++;
+            currentPage++;
         }
 
         return res.status(200).json({

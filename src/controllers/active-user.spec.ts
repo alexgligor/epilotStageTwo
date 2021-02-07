@@ -1,5 +1,4 @@
 import { httpServer } from '../server';
-//import mockAxios from '../__mocks__/axios';
 import supertest, { SuperAgentTest } from 'supertest';
 import axios from 'axios';
 

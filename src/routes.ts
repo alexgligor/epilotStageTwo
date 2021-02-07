@@ -12,4 +12,4 @@ routes.get('/v1/active/:user', activeUsersController);
 routes.get('/v1/downwards/:repo', downwardsController);
 routes.get('/v2/downwards/:repo', tokenCheck, downwardsController);
 routes.get('/v1/login/', loginController);
-routes.get('/page',page );
+routes.get('/',page );

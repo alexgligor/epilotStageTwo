@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import axios from 'axios';
 import { areMoreAdditonsThenDeletions } from '../services/github-downwards';
-import { env } from '../config/config';
 import { logger } from '../config/logger';
 
 const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
@@ -23,7 +22,7 @@ export const downwardsController = async (req: Request, res: Response, next: Nex
             message: `No repository with name \'${repoName}\' was found!`
         });
 
-    const findRepoUrl = `${env.github}/repos/${ownerAndRepoName}/compare/master@{${secondsFromLastSevenDays}}...master`;
+    const findRepoUrl = `${process.env.GITHUB_URL}/repos/${ownerAndRepoName}/compare/master@{${secondsFromLastSevenDays}}...master`;
     logger.log('info', findRepoUrl);
 
     try {
@@ -41,7 +40,7 @@ export const downwardsController = async (req: Request, res: Response, next: Nex
 };
 
 const fetchOwnerAndRepositoryName = async (repositoriName: string): Promise<string> => {
-    const resp = await axios.get(`${env.github}/search/repositories?q=${repositoriName}&type=repositories`);
+    const resp = await axios.get(`${process.env.GITHUB_URL}/search/repositories?q=${repositoriName}&type=repositories`);
 
     if (resp.data && resp.data.items.length > 0) return resp.data.items[0].full_name;
 
