@@ -6,7 +6,7 @@ jest.mock('axios');
 let request: SuperAgentTest;
 const mockAxios = axios as jest.Mocked<typeof axios>;
 
-describe('Checking user activity', () => {
+describe('Checking repos', () => {
     beforeAll(() => {
         request = supertest.agent(httpServer);
     });
@@ -40,7 +40,7 @@ describe('Checking user activity', () => {
     });
 
     it('Negative feedback', async (done) => {
-        mockAxios.get.mockResolvedValueOnce({
+        mockAxios.get.mockResolvedValue({
             data: {
                 files: [
                     {
@@ -75,7 +75,7 @@ describe('Checking user activity', () => {
     });
 
     it('Unknowen repo', async (done) => {
-        mockAxios.get.mockResolvedValueOnce({
+        mockAxios.get.mockResolvedValue({
             data: {}
         });
 
@@ -120,7 +120,7 @@ describe('Checking user activity', () => {
     });
 
     it('Unknowen repo', async (done) => {
-        mockAxios.get.mockResolvedValueOnce({});
+        mockAxios.get.mockResolvedValue({});
 
         await request
             .get(`/v1/downwards/repo_test`)

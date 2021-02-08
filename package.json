@@ -40,6 +40,6 @@
   "author": "Gligor Dan Alexandru",
   "license": "ISC",
   "engines": {
-    "node": "12.0.0"
+    "node": "14.15.4"
   }
 }

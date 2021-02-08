@@ -1,4 +1,5 @@
 import { httpServer } from '../server';
+//import mockAxios from '../__mocks__/axios';
 import supertest, { SuperAgentTest } from 'supertest';
 import axios from 'axios';
 
@@ -15,7 +16,7 @@ describe('Checking user activity', () => {
     });
 
     it('Positive feedback', async (done) => {
-        mockAxios.get.mockResolvedValueOnce({
+        mockAxios.get.mockResolvedValue({
             data: [
                 {
                     type: 'PushEvent',
@@ -37,7 +38,7 @@ describe('Checking user activity', () => {
     });
 
     it('No push events from user ', async (done) => {
-        mockAxios.get.mockResolvedValueOnce(() =>
+        mockAxios.get.mockResolvedValue(() =>
             Promise.resolve({
                 data: [
                     {
@@ -84,7 +85,7 @@ describe('Checking user activity', () => {
     });
 
     it('Bad request', async (done) => {
-        mockAxios.get.mockResolvedValueOnce({
+        mockAxios.get.mockResolvedValue({
             data: [
                 {
                     type: 'PushEvent',
