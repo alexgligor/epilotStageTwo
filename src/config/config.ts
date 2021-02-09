@@ -3,7 +3,7 @@ dotenv.config();
 
 const SERVER_PROPERTIES = {
     hostname: process.env.SERVER_HOSTNAME,
-    port: 8080//process.env.SERVER_PORT
+    port:process.env.SERVER_PORT
 };
 
 export const config = {
